@@ -22,20 +22,29 @@
  * Body: creates the goal of computing the Sum of X and Y
 */
 @start_sum_task_1_2_1_plan
-+!start_sum(X,Y) : true <- 
-    !compute_sum(Y,X,Sum); // creates the goal !compute_sum(Y,X,Sum)
-    .print(X, "+", Y, "=", Sum).
++!start_sum(X,Y)
+    :   true
+    <- 
+        !compute_sum(Y,X,Sum); // creates the goal !compute_sum(Y,X,Sum)
+        .print(X, "+", Y, "=", Sum);
+    .
 
 /* Task 1.2.1 Start of your solution */
 @compute_sum_task_1_2_1_plan
-+!compute_sum(X,Y,Sum) : true <-
-    .print("Implement Task 1.2.1").
++!compute_sum(X,Y,Sum)
+    : true
+    <-
+        .print("Implement Task 1.2.1");
+    .
 /* Task 1.2.1 End of your solution */
 
 @start_division_task_1_2_2_plan
-+!start_division(Dividend,Divisor) : true <- 
-    !compute_division(Dividend, Divisor, Quotient);
-    .print(Dividend, "/", Divisor, "=", Quotient).
++!start_division(Dividend,Divisor)
+    :   true
+    <- 
+        !compute_division(Dividend, Divisor, Quotient);
+        .print(Dividend, "/", Divisor, "=", Quotient);
+    .
 
 /* Task 1.2.2 Start of your solution */
 /* Task 1.2.2 End of your solution */
@@ -47,8 +56,11 @@
  * Body: informs about the failure
 */
 @compute_division_failure_task_1_2_2_plan
--!compute_division(Dividend,Divisor,_) : true <-
-    .print("Unable to compute the division of ", Dividend, " by ", Divisor).
+-!compute_division(Dividend,Divisor,_)
+    : true
+    <-
+        .print("Unable to compute the division of ", Dividend, " by ", Divisor);
+    .
 
 /* 
  * Plan for reacting to the addition of the goal !start_even_or_odd(X)
@@ -57,8 +69,11 @@
  * Body: informs that X is even
 */
 @start_even_1_2_3_plan
-+!start_even_or_odd(X) : even(X) <-
-    .print(X, " is even").
++!start_even_or_odd(X)
+    :   even(X)
+    <-
+        .print(X, " is even");
+    .
 
 /* 
  * Plan for reacting to the addition of the goal !start_even_or_odd(X)
@@ -67,8 +82,11 @@
  * Body: informs that X is odd
 */
 @start_odd_1_2_3_plan
-+!start_even_or_odd(X) : odd(X) <-
-    .print(X, " is odd").
++!start_even_or_odd(X)
+    : odd(X)
+    <-
+        .print(X, " is odd");
+    .
 
 /* 
  * Plan for reacting to the failure of the goal !start_even_or_odd(X)
@@ -77,8 +95,11 @@
  * Body: informs about the failure
 */
 @start_even_or_odd_failure_1_2_3_plan
--!start_even_or_odd(X) : true <-
-    .print("Unable to compute if ", X, " is even or odd").
+-!start_even_or_odd(X)
+    :   true
+    <-
+        .print("Unable to compute if ", X, " is even or odd");
+    .
 
 /* 
  * Plan for reacting to the addition of the goal !start_list_generation(Start, End)
@@ -87,9 +108,12 @@
  * Body: creates the goal of computing a list List that contains the integers in range [Start, End]
 */
 @start_list_generation_1_2_4_plan
-+!start_list_generation(Start, End) : true <-
-   !compute_list(Start, End, [], List);
-   .print("List with integers from ", Start, " to ", End, ": ", List).
++!start_list_generation(Start, End)
+    :   true
+    <-
+        !compute_list(Start, End, [], List);
+        .print("List with integers from ", Start, " to ", End, ": ", List);
+    .
 
 /* Task 1.2.4 Start of your solution */
 // You are allowed to use a triggering event other than the one provided 
@@ -101,8 +125,11 @@
  * Context: true (the plan is always applicable)
  * Body: informs about the failure
 */
--!compute_list(Start, End,_,_) : true <-
-    .print("Unable to compute a list with integers from ", Start, " to ", End).
+-!compute_list(Start, End,_,_)
+    :   true
+    <-
+        .print("Unable to compute a list with integers from ", Start, " to ", End);
+    .
 
 /* 
  * Plan for reacting to the addition of the goal !print_list([])
@@ -111,8 +138,11 @@
  * Body: informs that all list elements have been printed
 */
 @print_empty_list_plan
-+!print_list([]) : true <-
-    .print("All elements have been printed.").
++!print_list([])
+    :   true
+    <-
+        .print("All elements have been printed.");
+    .
 
 /* 
  * Plan for reacting to the addition of the goal !print_list([Element | RemainingList])
@@ -121,6 +151,9 @@
  * Body: recursively prints the fist element from the list. The remaining elements are stored in the list RemainingList
 */
 @print_list_plan
-+!print_list([Element | RemainingList]) : true <-
-    .print("List element: ", Element);
-    !print_list(RemainingList).
++!print_list([Element | RemainingList])
+    :   true
+    <-
+        .print("List element: ", Element);
+        !print_list(RemainingList);
+    .
