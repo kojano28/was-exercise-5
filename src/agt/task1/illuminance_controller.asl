@@ -2,10 +2,10 @@
 
 /* Initial rules */
 
-// Inference rule for infering the belief requires_brightening if the target illuminance is higher than the current illuminance
+// Inference rule for inferring the belief requires_brightening if the target illuminance is higher than the current illuminance
 requires_brightening :- target_illuminance(Target) & current_illuminance(Current) & Target  > Current.
 
-// Inference rule for infering the belief requires_darkening if the target illuminance is lower than the current illuminance
+// Inference rule for inferring the belief requires_darkening if the target illuminance is lower than the current illuminance
 requires_darkening :- target_illuminance(Target) & current_illuminance(Current) & Target < Current.
 
 /* Initial beliefs */
