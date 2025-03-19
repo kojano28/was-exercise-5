@@ -50,7 +50,7 @@ Complete the implementation of the simple agent in [`simple_agent.asl`](src/agt/
 Complete the implementation of the personal assistant agent in [`personal_assistant.asl`](src/agt/task2/personal_assistant.asl).
 
 ### Documentation 
-- [Lecture slides](https://learning.unisg.ch/courses/19882/files/2736973?module_item_id=560368); slides 37-48
+- [Lecture slides](https://learning.unisg.ch/courses/22565/files/3348665?module_item_id=668243); slides 60-70
 - [Bordini, R. H., Hübner, J. F., & Wooldridge, M. (2007). Programming multi-agent systems in AgentSpeak using Jason. John Wiley & Sons.](https://www.wiley.com/en-gb/Programming+Multi+Agent+Systems+in+AgentSpeak+using+Jason-p-9780470029008); Chapters 1-3
 - [Boissier, O., Bordini, R. H., Hubner, J., & Ricci, A. (2020). Multi-agent oriented programming: programming multi-agent systems using JaCaMo. Mit Press](https://mitpress.mit.edu/9780262044578/); Chapters 3-4
 - [Default internal actions of Jason](https://www.emse.fr/~boissier/enseignement/maop12/doc/jason-api/jason/stdlib/package-summary.html)
