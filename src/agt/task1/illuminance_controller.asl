@@ -6,20 +6,20 @@
 requires_brightening
     :-  target_illuminance(Target) 
         & current_illuminance(Current)
-        & Target  > Current
+        & (Target - Current) >= 100
     .
 
 // Inference rule for inferring the belief requires_darkening if the target illuminance is lower than the current illuminance
 requires_darkening
     :-  target_illuminance(Target)  
         & current_illuminance(Current)
-        & Target < Current
+        & (Current - Target) >= 100
     .
 
 /* Initial beliefs */
 
-// The agent believes that the target illuminance is 400 lux
-target_illuminance(400).
+// The agent believes that the target illuminance is 400 lux. Decrease to 350 lux based on Task 1.1 (4.)
+target_illuminance(350).
 
 /* Initial goals */
 
@@ -41,20 +41,29 @@ target_illuminance(400).
         !start;
     .
 
+
+
 /* 
- * Plan for reacting to the addition of the goal !manage_illuminance
+ * Task 1.1 (2.)
+ * Updated plan for increasing illuminance using lights when the weather is cloudy. ()
  * Triggering event: addition of goal !manage_illuminance
- * Context: the agent believes that the lights are off and that the room requires brightening
- * Body: the agent performs the action of turning on the lights
+ * Context: lights are off, the room requires brightening, and the weather is cloudy.
+ * Body: turns on the lights to increase the illuminance.
 */
 @increase_illuminance_with_lights_plan
 +!manage_illuminance
     :   lights("off")
         & requires_brightening
+        & weather("cloudy")
     <-
-        .print("Turning on the lights");
-        turnOnLights; // performs the action of turning on the lights
+        .print("Turning on the lights (cloudy weather)");
+        turnOnLights;
     .
+
+
+
+
+
 
 /* 
  * Plan for reacting to the addition of the goal !manage_illuminance
@@ -72,19 +81,22 @@ target_illuminance(400).
     .
 
 /* 
- * Plan for reacting to the addition of the goal !manage_illuminance
+ * Task 1.1 (2.)
+ * Updated plan for increasing illuminance using blinds when the weather is sunny.
  * Triggering event: addition of goal !manage_illuminance
- * Context: the agent believes that the blinds are lowered and that the room requires brightening
- * Body: the agent performs the action of raising the blinds
+ * Context: blinds are lowered, the room requires brightening, and the weather is sunny.
+ * Body: raises the blinds to increase the illuminance.
 */
 @increase_illuminance_with_blinds_plan
 +!manage_illuminance
     :   blinds("lowered")
-        &  requires_brightening
+        & requires_brightening
+        & weather("sunny")
     <-
-        .print("Raising the blinds");
-        raiseBlinds; // performs the action of raising the blinds
+        .print("Raising the blinds (sunny weather)");
+        raiseBlinds;
     .
+
 
 /* 
  * Plan for reacting to the addition of the goal !manage_illuminance
@@ -100,6 +112,40 @@ target_illuminance(400).
         .print("Lowering the blinds");
         lowerBlinds; // performs the action of lowering the blinds
     .
+
+/* 
+ * Task 1.1 (1.)
+ * Plan for handling the case when the current illuminance is equal to the target iluminance
+ * Triggering event: addition of the goal !manage_illuminance
+ * Context: the current illuminance is equal to the target illuminance
+ * Body: prints a message indicating that the design objective has been achieved
+*/
+@objective_achieved_plan
++!manage_illuminance
+    :   current_illuminance(Target)
+        & target_illuminance(Target)
+    <-
+        .print("Design objective achieved: current illuminance equals target (", Target, " lux).");
+    .
+
+
+/* 
+ * Task 1.1 (3.)
+ * Plan for reacting to the deletion of the belief weather("sunny")
+ * Triggering event: deletion of the belief weather("sunny")
+ * Context: the blinds are currently raised
+ * Body: prints a message and lowers the blinds
+*/
+@lower_blinds_on_cloudy_plan
+- weather("sunny")
+    :   blinds("raised")
+    <-
+        .print("Weather is no longer sunny and blinds are raised. Lowering the blinds.");
+        lowerBlinds;
+    .
+
+
+
 /* 
  * Plan for reacting to the addition of the belief current_illuminance(Current)
  * Triggering event: addition of belief current_illuminance(Current)
